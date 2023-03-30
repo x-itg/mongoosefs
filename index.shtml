@@ -1,0 +1,451 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>FM BROADCAST TRANSMITTER</title>
+	</head>
+
+	<script type="text/javascript">
+		var par_str;
+		var xmlhttp;
+		var text;
+		var RFtext;
+
+		function get_elm(id) {
+			if (typeof(id) == "string") return document.getElementById(id);
+			else return id;
+		}
+
+		function loadXMLDoc(url, cfunc) {
+			if (window.XMLHttpRequest) {
+				xmlhttp = new XMLHttpRequest();
+			} else {
+				xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+			}
+			xmlhttp.onreadystatechange = cfunc;
+			xmlhttp.open("GET", url, true);
+			xmlhttp.send();
+		}
+
+		function Read_RFPar() {
+			var num = 0;
+			loadXMLDoc("/RFread.cgi?t=" + Math.random(), function() {
+				if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+					RFtext = xmlhttp.responseText;
+					RFtext = RFtext.split(";");
+					get_elm("RFSW").value = RFtext[num++];
+					get_elm("Percent").value = RFtext[num++];
+					get_elm("mPf").value = RFtext[num++];
+					get_elm("mPr").value = RFtext[num++];
+					get_elm("mVg").value = RFtext[num++];
+					get_elm("mIg").value = RFtext[num++];
+					get_elm("mCg").value = RFtext[num++];
+					get_elm("Frequency").value = RFtext[num++];
+					get_elm("Modulation").value = RFtext[num++];
+					get_elm("PreEmpha").value = RFtext[num++];
+					get_elm("PilotAmp").value = RFtext[num++];
+					get_elm("PilotDev").value = RFtext[num++];
+					get_elm("AudioMode").value = RFtext[num++];
+					get_elm("AudioInput").value = RFtext[num++];
+					get_elm("AudioDGainL").value = RFtext[num++];
+					get_elm("AudioDGainR").value = RFtext[num++];
+					get_elm("AudioGainL").value = RFtext[num++];
+					get_elm("AudioGainR").value = RFtext[num++];
+					get_elm("MPXgain").value = RFtext[num++];
+					get_elm("RDSgain").value = RFtext[num++];
+					get_elm("AudioRds").value = RFtext[num++];
+					get_elm("SerNum3").value = RFtext[num++];
+					get_elm("Password").value = RFtext[num++];
+					get_elm("SynDelay").value = RFtext[num++];
+					get_elm("SyncEna").value = RFtext[num++];
+					get_elm("SynCode1").value = RFtext[num++];
+					get_elm("SynCode2").value = RFtext[num++];
+					get_elm("SoftVerion").value = RFtext[num++];
+				}
+			});
+		}
+
+		function Save_RFPar() {
+			var num = 0;
+			var RFsetstr;
+			RFsetstr = "/RFset.cgi?" +
+				"RFSW=" + get_elm("RFSW").value + "&" +
+				"PERC=" + get_elm("Percent").value + "&" +
+				"Frequency=" + get_elm("Frequency").value + "&" +
+				"Modulation=" + get_elm("Modulation").value + "&" +
+				"PreEmpha=" + get_elm("PreEmpha").value + "&" +
+				"PilotAmp=" + get_elm("PilotAmp").value + "&" +
+				"PilotDev=" + get_elm("PilotDev").value + "&" +
+				"AudioMode=" + get_elm("AudioMode").value + "&" +
+				"AudioInput=" + get_elm("AudioInput").value + "&" +
+				"AudioDGainL=" + get_elm("AudioDGainL").value + "&" +
+				"AudioDGainR=" + get_elm("AudioDGainR").value + "&" +
+				"AudioGainL=" + get_elm("AudioGainL").value + "&" +
+				"AudioGainR=" + get_elm("AudioGainR").value + "&" +
+				"MPXgain=" + get_elm("MPXgain").value + "&" +
+				"RDSgain=" + get_elm("RDSgain").value + "&" +
+				"AudioRds=" + get_elm("AudioRds").value + "&" +
+				"SynCode1=" + get_elm("SynCode1").value + "&" +
+				"SynCode2=" + get_elm("SynCode2").value + "&" +
+				"SynDelay=" + get_elm("SynDelay").value + "&" +
+				"SyncEna=" + get_elm("SyncEna").value + "&" +
+				"t=" + Math.random();
+				loadXMLDoc(RFsetstr, function() {
+				if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+					text = xmlhttp.responseText;
+					text = text.split(";");
+					alert(text[0]);
+				}
+			});
+		}
+
+	</script>
+
+	<style type="text/css" rel="stylesheet" media="screen">
+		p,
+		h2 {
+			margin: 0;
+		}
+		.container {
+			display: flex;
+			min-height: 500px;
+			width: 90%;
+			margin: 0 auto;
+			min-width: 1024px;
+		}
+
+		.items {
+			background: #011529;
+			width: 200px;
+			min-width: 150px;
+		}
+
+		.items .item {
+			height: 40px;
+			line-height: 40px;
+			padding: 10px 20px;
+			color: #a7adb5;
+			cursor: pointer;
+		}
+
+		.items .item:hover {
+			background: #000c17;
+		}
+
+		.items .success {
+			background: #1990fc;
+			color: #fff;
+		}
+
+		.items .success:hover {
+			background: #1990fc;
+		}
+
+		.items .success a {
+			color: #fff;
+		}
+
+		.items a {
+			text-decoration: none;
+			color: #a7adb5;
+		}
+
+		#content {
+			width: 100%;
+		}
+
+		#content .t-title {
+			text-align: center;
+			font-size: 20px;
+			background: #E0E0E0;
+			padding: 10px 1;
+		}
+
+		#content table {
+			margin: 0 auto;
+			border-collapse: collapse;
+			text-align: left;
+			width: 100%;
+		}
+
+		.form td {
+			height: 20px;
+			color: #6c6c6c;
+			font-size: 13px;
+			text-align: left;
+			vertical-align: middle;
+			border: solid 1px #d5d5d5;
+			border-left: 0;
+			font-weight: bold;
+			padding: 10px 10px;
+			background: #fcfcfc;
+		}
+
+		.form .flex {
+			display: flex;
+			align-items: center;
+		}
+
+		.form td input,
+		.form td select {
+			height: 28px;
+			line-height: 28px;
+			border-radius: 2px;
+			margin-right: 10px;
+			padding: 0 10px;
+			font-size: 16px;
+
+			background: none;
+			outline: none;
+			border: none;
+			border: 1px solid #ccc;
+		}
+
+		.btn-list {
+			display: flex;
+			justify-content: space-around;
+			margin-top: 5px;
+		}
+
+		.btn-list .btn {
+			cursor: pointer;
+			height: 32px;
+			line-height: 32px;
+			text-align: center;
+			padding: 0 15px;
+			font-size: 14px;
+			border-radius: 4px;
+			color: rgba(0, 0, 0, 0.65);
+			background-color: #1890ff;
+			border-color: #1890ff;
+			color: #fff;
+		}
+
+		.btn-list .btn:active {
+			background-color: #096dd9;
+			border-color: #096dd9;
+		}
+
+		.box .box-btn {
+			margin: 3px 0;
+		}
+
+		.box .form-item {
+			display: flex;
+			align-items: center;
+			padding: 3px 0;
+			background: #f2f2f2;
+			font-size: 18px;
+			line-height: 36px;
+		}
+
+		.box .label {
+			padding-left: 10px;
+		}
+
+		.box .form-item input,
+		.box .form-item select {
+			width: 150px;
+			height: 28px;
+			line-height: 28px;
+			border-radius: 2px;
+			margin-right: 10px;
+			padding: 0 10px;
+			font-size: 16px;
+			background: none;
+			outline: none;
+			border: none;
+			border: 1px solid #ccc;
+		}
+
+		.box .form-item input:focus {
+			border: 1px solid #ccc;
+		}
+	</style>
+
+	<body onload="Read_RFPar()">
+		<div id="wrap" class="container">
+			<div class="items">
+				<a href="./index.shtml">
+					<div class="success item"> Device</div>
+				</a>
+				<a href="./info.shtml">
+					<div class="norm_btn item"> General</div>
+				</a>
+			</div>
+
+			<div id="content">
+				<form id="form0" class="form">
+					<p class="t-title"> <br>Device Status/Info<br></p>
+					<table>
+						<tr>
+							<td> <br>FORWARD POWER</td>
+							<td>
+								<input name="mPf" type="text" id="mPf" size="4" maxlength="4" readonly="readonly">W
+							</td>
+							<td> <br>REVERSE POWER</td>
+							<td>
+								<input name="mPr" type="text" id="mPr" size="5" maxlength="5" readonly="readonly">W
+							</td>
+						</tr>
+						<tr>
+							<td> <br>AMP VOLTAGE</td>
+							<td>
+								<input name="mVg" type="text" id="mVg" size="4" maxlength="4" readonly="readonly">V
+							</td>
+							<td> <br>AMP CURRENT</td>
+							<td>
+								<input name="mIg" type="text" id="mIg" size="4" maxlength="4" readonly="readonly">A
+							</td>
+						</tr>
+						<tr>
+							<td> <br>AMP TEMPERATURE</td>
+							<td>
+								<input name="mCg" type="text" id="mCg" size="4" maxlength="4" readonly="readonly" />℃
+							</td>
+							<td> <br>Password</td>
+							<td><input name="Password" type="text" id="Password" size="8" maxlength="8" readonly="readonly" /></td>
+							
+							</tr>
+						<tr>
+							<td> <br>Serial Number</td>
+							<td>
+								<input name="SerNum3" type="text" id="SerNum3" size="8" maxlength="8" readonly="readonly" />
+							</td>
+							<td> <br>MCU Soft Version</td>
+							<td>
+								<input name="SoftVerion" type="text" id="SoftVerion" size="21" maxlength="21" readonly="readonly" />
+							</td>
+							
+						</tr>
+						
+					</table>
+					<p class="t-title"> <br>Parameter Set<br></p>
+					<table>
+						<tr>
+							<td> <br>Power ON/OFF</td>
+							<td>
+								<select name="RFSW" id="RFSW">
+									<option value="0">OFF</option>
+									<option value="1">ON</option>
+								</select>
+							</td>
+							<td> <br>Percentage 0-100.0%</td>
+							<td colspan="2">
+								<input name="Percent" type="text" id="Percent" size="5" maxlength="5">%
+							</td>
+						</tr>
+						<tr>
+							<td> <br>Frequency</td>
+							<td>
+								<input name="Frequency" type="text" id="Frequency" size="8" maxlength="8" />MHz
+							</td>
+							<td> <br>Modulation Degree</td>
+							<td colspan="2">
+								<input name="Modulation" type="text" id="Modulation" size="4" maxlength="4">KHz
+							</td>
+
+						</tr>
+						<tr>
+							<td> <br>Pre Emphasis</td>
+							<td>
+								<select name="PreEmpha" id="PreEmpha">
+									<option value="0">0us</option>
+									<option value="1">25us</option>
+									<option value="2">50us</option>
+									<option value="3">75us</option>
+								</select>
+							</td>
+							<td> <br>Pilot Amplitude(0~112.5KHz)<br>Phase(0~180.0°)</td>
+							<td>
+								<input name="PilotAmp" type="text" id="PilotAmp" size="4" maxlength="4">KHz
+							</td>
+							<td>
+								<input name="PilotDev" type="text" id="PilotDev" size="5" maxlength="5">°
+							</td>
+						</tr>
+						<tr>
+							<td> <br>Audio Mode</td>
+							<td>
+								<select name="AudioMode" id="AudioMode">
+									<option value="0">MUTE</option>
+									<option value="1">MONO L</option>
+									<option value="2">MONO R</option>
+									<option value="3">STERO</option>
+								</select>
+							</td>
+							<td> <br>Audio Input</td>
+							<td colspan="2">
+								<select name="AudioInput" id="AudioInput">
+									<option value="0">AES1</option>
+									<option value="1">AES2</option>
+									<option value="2">ANALOG</option>
+									<option value="3">MPX</option>
+									<option value="4">I2S</option>
+									<option value="5">AUTO</option>
+								</select>
+							</td>
+						</tr>
+						<tr>
+							<td> <br>Left Channel Digital Gain</td>
+							<td>
+								<input name="AudioDGainL" type="text" id="AudioDGainL" size="5" maxlength="5">dB
+							</td>
+							<td> <br>Right Channel Digital Gain</td>
+							<td colspan="2">
+								<input name="AudioDGainR" type="text" id="AudioDGainR" size="5" maxlength="5">dB
+							</td>
+						</tr>
+						<tr>
+							<td> <br>Left Channel Analog Gain</td>
+							<td>
+								<input name="AudioGainL" type="text" id="AudioGainL" size="5" maxlength="5">dB
+							</td>
+							<td> <br>Right Channel Analog Gain</td>
+							<td colspan="2">
+								<input name="AudioGainR" type="text" id="AudioGainR" size="5" maxlength="5">dB
+							</td>
+						</tr>
+						<tr>
+							<td> <br>MPX Gain</td>
+							<td>
+								<input name="MPXgain" type="text" id="MPXgain" size="5" maxlength="5">dB
+							</td>
+							<td> <br>RDS Gain</td>
+							<td colspan="2">
+								<input name="RDSgain" type="text" id="RDSgain" size="5" maxlength="5">dB
+							</td>
+						</tr>
+						<tr>
+							<td> <br>RDS ON/OFF</td>
+							<td>
+								<select name="AudioRds" id="AudioRds">
+									<option value="0">OFF</option>
+									<option value="1">ON</option>
+								</select>
+							</td>
+							<td>SYNC Code:</td>
+							<td><input name="SynCode1" type="text" id="SynCode1" size="5" maxlength="5"  /></td>
+							<td><input name="SynCode2" type="text" id="SynCode2" size="5" maxlength="5"  /></td>
+						</tr>
+						<tr>
+							<td> <br>SYNC EBABLE</td>
+							<td>
+								<select name="SyncEna" id="SyncEna">
+									<option value="0">OFF</option>
+									<option value="1">ON</option>
+								</select>
+							</td>
+							<td> <br>Delay</td>
+							<td colspan="2"><input name="SynDelay" type="text" id="SynDelay" size="6" maxlength="6"  /></td>
+						</tr>
+					</table>
+				</form>
+				<div class="btn-list">
+					<div class="btn" id="ReadRFPar" onClick="Read_RFPar()">  READ </div>
+					<div class="btn" id="SetRFPar" onClick="Save_RFPar()">  SAVE </div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

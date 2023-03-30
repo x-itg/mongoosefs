@@ -1,0 +1,441 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>DEVICE</title>
+	</head>
+
+	<script type="text/javascript">
+		var par_str;
+		var xmlhttp;
+		var text;
+		var RFtext;
+
+		function get_elm(id) {
+			if (typeof(id) == "string") return document.getElementById(id);
+			else return id;
+		}
+
+		function loadXMLDoc(url, cfunc) {
+			if (window.XMLHttpRequest) {
+				xmlhttp = new XMLHttpRequest();
+			} else {
+				xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+			}
+			xmlhttp.onreadystatechange = cfunc;
+			xmlhttp.open("GET", url, true);
+			xmlhttp.send();
+		}
+
+		function ReadGen() {
+			var num = 0;
+			loadXMLDoc("/ReadGen.cgi?t=" + Math.random(), function() {
+				if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+					RFtext = xmlhttp.responseText;
+					RFtext = RFtext.split(";");
+					get_elm("BaudRate").value = RFtext[num++];
+					get_elm("Addr").value = RFtext[num++];
+					get_elm("CANSW").value = RFtext[num++];
+					get_elm("CANaddr").value = RFtext[num++];
+					get_elm("IP0").value = RFtext[num++];
+					get_elm("IP1").value = RFtext[num++];
+					get_elm("IP2").value = RFtext[num++];
+					get_elm("IP3").value = RFtext[num++];
+					get_elm("MSK0").value = RFtext[num++];
+					get_elm("MSK1").value = RFtext[num++];
+					get_elm("MSK2").value = RFtext[num++];
+					get_elm("MSK3").value = RFtext[num++];
+					get_elm("GA0").value = RFtext[num++];
+					get_elm("GA1").value = RFtext[num++];
+					get_elm("GA2").value = RFtext[num++];
+					get_elm("GA3").value = RFtext[num++];
+					get_elm("pKey").value = RFtext[num++];
+					get_elm("pNam").value = RFtext[num++];
+					get_elm("cID").value = RFtext[num++];
+					get_elm("pPas").value = RFtext[num++];
+					get_elm("MAC0").value = RFtext[num++];
+					get_elm("MAC1").value = RFtext[num++];
+					get_elm("MAC2").value = RFtext[num++];
+					get_elm("MAC3").value = RFtext[num++];
+					get_elm("MAC4").value = RFtext[num++];
+					get_elm("MAC5").value = RFtext[num++];
+					get_elm("RST").value = RFtext[num++];
+					get_elm("DEBUGSTR").value = RFtext[num++];
+					get_elm("smSw").value = RFtext[num++];
+					get_elm("smSc").value = RFtext[num++];
+					get_elm("smSp0").value = RFtext[num++];
+					get_elm("smSp1").value = RFtext[num++];
+					get_elm("smSp2").value = RFtext[num++];
+
+				}
+			});
+		}
+
+		function SetGen() {
+			var num = 0;
+			var RFsetstr;
+			RFsetstr = "/SetGen.cgi?" +
+				"BaudRate=" + get_elm("BaudRate").value + "&" +
+				"Addr=" + get_elm("Addr").value + "&" +
+				"CANSW=" + get_elm("CANSW").value + "&" +
+				"CANaddr=" + get_elm("CANaddr").value + "&" +
+				"pKey=" + get_elm("pKey").value + "&" +
+				"pNam=" + get_elm("pNam").value + "&" +
+				"cID=" + get_elm("cID").value + "&" +
+				"pPas=" + get_elm("pPas").value + "&" +
+				"IP0=" + get_elm("IP0").value + "&" +
+				"IP1=" + get_elm("IP1").value + "&" +
+				"IP2=" + get_elm("IP2").value + "&" +
+				"IP3=" + get_elm("IP3").value + "&" +
+				"MSK0=" + get_elm("MSK0").value + "&" +
+				"MSK1=" + get_elm("MSK1").value + "&" +
+				"MSK2=" + get_elm("MSK2").value + "&" +
+				"MSK3=" + get_elm("MSK3").value + "&" +
+				"GA0=" + get_elm("GA0").value + "&" +
+				"GA1=" + get_elm("GA1").value + "&" +
+				"GA2=" + get_elm("GA2").value + "&" +
+				"GA3=" + get_elm("GA3").value + "&" +
+				"MAC0=" + get_elm("MAC0").value + "&" +
+				"MAC1=" + get_elm("MAC1").value + "&" +
+				"MAC2=" + get_elm("MAC2").value + "&" +
+				"MAC3=" + get_elm("MAC3").value + "&" +
+				"MAC4=" + get_elm("MAC4").value + "&" +
+				"MAC5=" + get_elm("MAC5").value + "&" +
+				"RST=" + get_elm("RST").value + "&" +
+				"smSw=" + get_elm("smSw").value + "&" +
+				"smSc=" + get_elm("smSc").value + "&" +
+				"smSp0=" + get_elm("smSp0").value + "&" +
+				"smSp1=" + get_elm("smSp1").value + "&" +
+				"smSp2=" + get_elm("smSp2").value + "&" +
+				"t=" + Math.random();
+				loadXMLDoc(RFsetstr, function() {
+				if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+					text = xmlhttp.responseText;
+					text = text.split(";");
+					alert(text[0]);
+				}
+			});
+		}
+
+	</script>
+
+	<style type="text/css" rel="stylesheet" media="screen">
+		p,
+		h2 {
+			margin: 0;
+		}
+		.container {
+			display: flex;
+			min-height: 500px;
+			width: 90%;
+			margin: 0 auto;
+			min-width: 1024px;
+		}
+
+		.items {
+			background: #011529;
+			width: 200px;
+			min-width: 150px;
+		}
+
+		.items .item {
+			height: 40px;
+			line-height: 40px;
+			padding: 10px 20px;
+			color: #a7adb5;
+			cursor: pointer;
+		}
+
+		.items .item:hover {
+			background: #000c17;
+		}
+
+		.items .success {
+			background: #1990fc;
+			color: #fff;
+		}
+
+		.items .success:hover {
+			background: #1990fc;
+		}
+
+		.items .success a {
+			color: #fff;
+		}
+
+		.items a {
+			text-decoration: none;
+			color: #a7adb5;
+		}
+
+		#content {
+			width: 100%;
+		}
+
+		#content .t-title {
+			text-align: center;
+			font-size: 20px;
+			background: #E0E0E0;
+			padding: 10px 1;
+		}
+
+		#content table {
+			margin: 0 auto;
+			border-collapse: collapse;
+			text-align: left;
+			width: 100%;
+		}
+
+		.form td {
+			height: 20px;
+			color: #6c6c6c;
+			font-size: 13px;
+			text-align: left;
+			vertical-align: middle;
+			border: solid 1px #d5d5d5;
+			border-left: 0;
+			font-weight: bold;
+			padding: 10px 20px;
+			background: #fcfcfc;
+		}
+
+		.form .flex {
+			display: flex;
+			align-items: center;
+		}
+
+		.form td input,
+		.form td select {
+			height: 28px;
+			line-height: 28px;
+			border-radius: 2px;
+			margin-right: 10px;
+			padding: 0 10px;
+			font-size: 16px;
+
+			background: none;
+			outline: none;
+			border: none;
+			border: 1px solid #ccc;
+		}
+
+		.btn-list {
+			display: flex;
+			justify-content: space-around;
+			margin-top: 5px;
+		}
+
+		.btn-list .btn {
+			cursor: pointer;
+			height: 32px;
+			line-height: 32px;
+			text-align: center;
+			padding: 0 15px;
+			font-size: 14px;
+			border-radius: 4px;
+			color: rgba(0, 0, 0, 0.65);
+			background-color: #1890ff;
+			border-color: #1890ff;
+			color: #fff;
+		}
+
+		.btn-list .btn:active {
+			background-color: #096dd9;
+			border-color: #096dd9;
+		}
+
+		.box .box-btn {
+			margin: 3px 0;
+		}
+
+		.box .form-item {
+			display: flex;
+			align-items: center;
+			padding: 3px 0;
+			background: #f2f2f2;
+			font-size: 18px;
+			line-height: 36px;
+		}
+
+		.box .label {
+			padding-left: 10px;
+		}
+
+		.box .form-item input,
+		.box .form-item select {
+			width: 150px;
+			height: 28px;
+			line-height: 28px;
+			border-radius: 2px;
+			margin-right: 10px;
+			padding: 0 10px;
+			font-size: 16px;
+			background: none;
+			outline: none;
+			border: none;
+			border: 1px solid #ccc;
+		}
+
+		.box .form-item input:focus {
+			border: 1px solid #ccc;
+		}
+	</style>
+
+	<body onload="ReadGen()">
+		<div id="wrap" class="container">
+			<div class="items">
+				<a href="./index.shtml">
+					<div class="norm_btn item"> Device</div>
+				</a>
+				<a href="./info.shtml">
+					<div class="success item"> General</div>
+				</a>
+			</div>
+
+			<div id="content">
+				<form id="form0" class="form">
+					<p class="t-title"><br>Ethernet Info<br></p>
+					<table>
+						<tr>
+							<td> <br>IP Address</td>
+							<td>
+							<input name="IP0" type="text" id="IP0" size="3" maxlength="3">
+							<input name="IP1" type="text" id="IP1" size="3" maxlength="3">
+							<input name="IP2" type="text" id="IP2" size="3" maxlength="3">
+							<input name="IP3" type="text" id="IP3" size="3" maxlength="3">
+							</td>
+						</tr>
+						<tr>
+							<td> <br>Sub Mask</td>
+							<td>
+							<input name="MSK0" type="text" id="MSK0" size="3" maxlength="3">
+							<input name="MSK1" type="text" id="MSK1" size="3" maxlength="3">
+							<input name="MSK2" type="text" id="MSK2" size="3" maxlength="3">
+							<input name="MSK3" type="text" id="MSK3" size="3" maxlength="3">
+							</td>
+						</tr>
+						<tr>
+							<td> <br>Gateway Address</td>
+							<td>
+							<input name="GA0" type="text" id="GA0" size="3" maxlength="3">
+							<input name="GA1" type="text" id="GA1" size="3" maxlength="3">
+							<input name="GA2" type="text" id="GA2" size="3" maxlength="3">
+							<input name="GA3" type="text" id="GA3" size="3" maxlength="3">
+							</td>
+						</tr>
+						<tr>
+							<td> <br>MAC Address</td>
+							<td>
+							<input name="MAC0" type="text" id="MAC0" size="3" maxlength="3" >
+							<input name="MAC1" type="text" id="MAC1" size="3" maxlength="3" >
+							<input name="MAC2" type="text" id="MAC2" size="3" maxlength="3" >
+							<input name="MAC3" type="text" id="MAC3" size="3" maxlength="3" >
+							<input name="MAC4" type="text" id="MAC4" size="3" maxlength="3" >
+							<input name="MAC5" type="text" id="MAC5" size="3" maxlength="3" >
+							</td>
+						</tr>
+						<tr>
+							<td> <br>Reset Set</td>
+							<td colspan="5">
+							<select name="RST" id="RST">
+								<option value="0">  Run  </option>
+								<option value="1">  Restart </option>
+								<option value="2">  BootLoader </option>
+							</select>
+							</td>
+						</tr>
+					</table>
+					<p class="t-title"> <br>General Set<br></p>
+					<table>
+						<tr>
+							<td> <br>RS232 Baud Rate</td>
+							<td>
+								<select name="BaudRate" id="BaudRate">
+									<option value="0">4800 </option>
+									<option value="1">9600 </option>
+									<option value="2">14400</option>
+									<option value="3">19200</option>
+									<option value="4">24000</option>
+									<option value="5">28800</option>
+									<option value="6">33600</option>
+									<option value="7">38400</option>
+								</select>
+							</td>
+							<td> <br>Address 0-255</td>
+							<td><input name="Addr" type="text" id="Addr" size="3" maxlength="3"></td>
+						</tr>
+						<tr>
+							<td> <br>CAN ON/OFF</td>
+							<td>
+								<select name="CANSW" id="CANSW">
+								<option value="0">ON </option>
+								<option value="1">OFF </option>
+								</select>
+							</td>
+							<td> <br>CAN Address</td>
+							<td>
+								<select name="CANaddr" id="CANaddr">
+								<option value="0">0 CCU</option>
+								<option value="1">1 EXC MIAN</option>
+								<option value="2">2 EXC SPARE</option>
+								</select>
+							</td>
+						</tr>
+						<tr>
+							<td>  <br>productKey</td>
+							<td colspan="3">
+							<input name="pKey" type="text" id="pKey" size="20" maxlength="20">
+							</td>
+						</tr>
+						<tr>
+							<td>  <br>deviceName</td>
+							<td colspan="3">
+							<input name="pNam" type="text" id="pNam" size="20" maxlength="20">
+							</td>
+						</tr>
+						<tr>
+							<td>  <br>clientId</td>
+							<td colspan="3">
+							<input name="cID" type="text" id="cID" size="20" maxlength="20">
+							</td>
+						</tr>
+						<tr>
+							<td>  <br>deviceSecret</td>
+							<td colspan="3">
+							<input name="pPas" type="text" id="pPas" size="50" maxlength="50">
+							</td>
+						</tr>
+						<tr>
+						<td>  <br>SMS Center</td>
+						<td>
+							<select name="smSw" id="smSw">
+								<option value="0">  OFF</option>
+								<option value="1">  ON</option>
+							</select></td>
+						<td colspan="2"><input name="smSc" type="text" id="smSc" size="11" maxlength="11"></td>
+						</tr>
+						<tr>
+						<td>  <br>Remote Phone</td>
+						<td><input name="smSp0" type="text" id="smSp0" size="11" maxlength="11"></td>
+						<td><input name="smSp1" type="text" id="smSp1" size="11" maxlength="11"></td>
+						<td><input name="smSp2" type="text" id="smSp2" size="11" maxlength="11"></td>
+						</tr>
+						<tr>
+							<td>  <br>Debug Text</td>
+							<td colspan="3" rowspan="2">
+							<textarea id="DEBUGSTR" rows="5" cols="80"></textarea>
+							</td>
+						</tr>
+						<tr>
+						</tr>
+						</table>
+					
+				</form>
+				<div class="btn-list">
+					<div class="btn" id="ReadGen" onClick="ReadGen()">  READ </div>
+					<div class="btn" id="SetGen" onClick="SetGen()">  SAVE </div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
