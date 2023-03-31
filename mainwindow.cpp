@@ -40,7 +40,7 @@ void MainWindow::on_createButton_clicked()
     QDir dir(curretFiepath);
     QFileInfoList list = dir.entryInfoList();
     QString retpath;
-    QString outfilename = curretFiepath + "/packet_fs.c";         // 输出文件的路径+文件名
+    QString outfilename = curretFiepath + "/packed_fs.c";         // 输出文件的路径+文件名
     FILE *outfp = fopen(outfilename.toStdString().c_str(), "w+"); // 创建输出文件
     k = 0;
     fprintf(outfp, "%s", "#include <stddef.h>\n");
@@ -100,6 +100,7 @@ void MainWindow::on_createButton_clicked()
     fprintf(outfp, "%s", "  {NULL, NULL, 0, 0}\n");
     fprintf(outfp, "%s", "};\n\n");
     fprintf(outfp, "%s", code);
-    ui->tview->append("created file:"+curretFiepath + "/packet_fs.c");
+    ui->tview->append("created file:"+curretFiepath + "/packed
+                      _fs.c");
     fclose(outfp);
 }
